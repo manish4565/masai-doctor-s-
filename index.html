@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Doctor Form</title>
+</head>
+<body>
+  <form id="doctorForm">
+    <input type="text" id="doctorName" placeholder="Name of the Doctor" required><br><br>
+    <input type="text" id="doctorID" placeholder="Doctor ID" required><br><br>
+    <select id="specialization" required>
+      <option value="">Select Specialization</option>
+      <option value="ENT">ENT</option>
+      <option value="Cardiology">Cardiology</option>
+      <!-- Add other specialization options as needed -->
+    </select><br><br>
+    <input type="number" id="experience" placeholder="Experience in years" required><br><br>
+    <input type="email" id="email" placeholder="Email address" required><br><br>
+    <input type="tel" id="mobileNumber" placeholder="Mobile Number" required><br><br>
+    <input type="submit" value="Submit">
+  </form>
+
+  <select id="filter">
+    <option value="">Filter by Specialization</option>
+    <!-- Add options dynamically using JavaScript -->
+  </select>
+
+  <table border="1">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Doctor ID</th>
+        <th>Specialization</th>
+        <th>Experience</th>
+        <th>Email address</th>
+        <th>Mobile Number</th>
+        <th>Role</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody id="doctorTable">
+      <!-- Data will be displayed here -->
+    </tbody>
+  </table>
+
+  <script>
+    document.getElementById('doctorForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const name = document.getElementById('doctorName').value;
+      const doctorID = document.getElementById('doctorID').value;
+      const specialization = document.getElementById('specialization').value;
+      const experience = parseFloat(document.getElementById('experience').value);
+      const email = document.getElementById('email').value;
+      const mobileNumber = document.getElementById('mobileNumber').value;
+
+      let role = '';
+      if (experience > 5) {
+        role = 'Senior';
+      } else if (experience >= 2 && experience <= 5) {
+        role = 'Junior';
+      } else {
+        role = 'Trainee';
+      }
+
+      const table = document.getElementById('doctorTable');
+      const newRow = table.insertRow();
+
+      newRow.innerHTML = `
+        <td>${name}</td>
+        <td>${doctorID}</td>
+        <td>${specialization}</td>
+        <td>${experience}</td>
+        <td>${email}</td>
+        <td>${mobileNumber}</td>
+        <td>${role}</td>
+        <td><button onclick="deleteRow(this)">Delete</button></td>
+      `;
+
+      const filterSelect = document.getElementById('filter');
+      if (!Array.from(filterSelect.options).find(option => option.value === specialization)) {
+        filterSelect.innerHTML += `<option value="${specialization}">${specialization}</option>`;
+      }
+
+      this.reset(); // Reset the form fields
+    });
+
+    function deleteRow(btn) {
+      const row = btn.parentNode.parentNode;
+      row.parentNode.removeChild(row);
+    }
+
+    document.getElementById('filter').addEventListener('change', function() {
+      const specialization = this.value;
+      const table = document.getElementById('doctorTable');
+      const rows = table.getElementsByTagName('tr');
+      
+      for (let i = 0; i < rows.length; i++) {
+        const currentRow = rows[i];
+        const cells = currentRow.getElementsByTagName('td');
+        if (cells.length > 0 && cells[2].innerText === specialization) {
+          currentRow.style.display = '';
+        } else {
+          currentRow.style.display = 'none';
+        }
+      }
+    });
+  </script>
+</body>
+</html>
