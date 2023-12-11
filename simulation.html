@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Vehicle Simulation</title>
+  <script>
+    // JavaScript code (same as provided earlier)
+    // ... (Vehicle, Car, Airplane constructors and methods)
+  </script>
+</head>
+<body>
+  <h1>Vehicle Simulation</h1>
+
+  <h2>My Car</h2>
+  <button onclick="accelerateCar()">Accelerate Car</button>
+  <button onclick="brakeCar()">Brake Car</button>
+  <button onclick="refuelCar()">Refuel Car</button>
+  <button onclick="honkCar()">Honk Car</button>
+
+  <h2>My Airplane</h2>
+  <button onclick="accelerateAirplane()">Accelerate Airplane</button>
+  <button onclick="brakeAirplane()">Brake Airplane</button>
+  <button onclick="refuelAirplane()">Refuel Airplane</button>
+  <button onclick="takeOffAirplane()">Take Off Airplane</button>
+
+  <script>
+    // Creating instances of Car and Airplane
+    const myCar = new Car('Toyota', 'Corolla', 0, 'Petrol', 4);
+    const myAirplane = new Airplane('Boeing', '747', 0, 'Jet Fuel', 4, true);
+
+    // Functions to handle button clicks for car
+    function accelerateCar() {
+      myCar.accelerate(50);
+    }
+
+    function brakeCar() {
+      myCar.brake(20);
+    }
+
+    function refuelCar() {
+      myCar.refuel();
+    }
+
+    function honkCar() {
+      myCar.honk();
+    }
+
+    // Functions to handle button clicks for airplane
+    function accelerateAirplane() {
+      myAirplane.accelerate(200);
+    }
+
+    function brakeAirplane() {
+      myAirplane.brake(50);
+    }
+
+    function refuelAirplane() {
+      myAirplane.refuel();
+    }
+
+    function takeOffAirplane() {
+      myAirplane.takeOff();
+    }
+  </script>
+</body>
+</html>
